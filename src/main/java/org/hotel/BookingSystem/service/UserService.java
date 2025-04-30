@@ -1,8 +1,8 @@
 package org.hotel.BookingSystem.service;
 
-import org.hotel.BookingSystem.Bean.BeanHotelFilter;
 import org.hotel.BookingSystem.Bean.BeanLogin;
 import org.hotel.BookingSystem.Bean.BeanRegister;
+import org.hotel.BookingSystem.DTOs.OtpRequest;
 import org.hotel.BookingSystem.enums.UserType;
 import org.hotel.BookingSystem.model.Hotel;
 import org.hotel.BookingSystem.model.User;
@@ -11,6 +11,8 @@ import org.hotel.BookingSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -20,10 +22,10 @@ public class UserService {
     private UserRepository userRepo;
 
     @Autowired
-    HotelRepository hotelRepository;
+   private HotelRepository hotelRepository;
 
     @Autowired
-    HotelService hotelService;
+   private HotelService hotelService;
 
 
 
@@ -99,8 +101,13 @@ public class UserService {
         }
 
 //        String token = jwtUtil.generateToken(user.getEmail());
+
         String token = UUID.randomUUID()+"_"+UUID.randomUUID();
         user.setToken(token);
+        user.setOtp(generateOTP(4));
+        LocalDateTime futureTime = LocalDateTime.now().plusMinutes(5);
+
+        user.setOtpGeneratedTime(futureTime);
         userRepo.save(user);
 
         return user;
@@ -112,5 +119,38 @@ public class UserService {
             throw new RuntimeException("Invalid token or user not found ");
         }
         return user;
+    }
+
+    public String generateOTP(int length) {
+        String digits = "0123456789";
+        StringBuilder otp = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            otp.append(digits.charAt(random.nextInt(digits.length())));
+        }
+        System.out.println("YOUR OTP IS :::::"+1111);
+        return "1111";
+    }
+
+    public boolean verifyOtp(String email, String otp) {
+        Optional<User> userOtp = Optional.ofNullable(userRepo.findByEmail(email));
+
+        if (userOtp.isPresent()) {
+            User user  = userOtp.get();
+
+            if (user.getOtp().equals(otp)) {
+                if (user.getOtpGeneratedTime().isAfter(LocalDateTime.now()))
+                {
+                    user.setOtpGeneratedTime(LocalDateTime.now());
+                    userRepo.save(user);
+                    return true;
+                }
+            } else {
+                throw new RuntimeException("Invalid OTP");
+            }
+        } else {
+            throw new RuntimeException("User not Found");
+        }
+        return false;
     }
 }

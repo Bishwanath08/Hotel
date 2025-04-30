@@ -1,8 +1,11 @@
 package org.hotel.BookingSystem.controller;
 
+
+
 import org.hotel.BookingSystem.Bean.BeanLogin;
 import org.hotel.BookingSystem.Bean.BeanRegister;
 import org.hotel.BookingSystem.DTOs.LoginResponseBean;
+import org.hotel.BookingSystem.DTOs.OtpRequest;
 import org.hotel.BookingSystem.DTOs.RegisterResponseBean;
 import org.hotel.BookingSystem.DTOs.TokenResponseBean;
 import org.hotel.BookingSystem.model.User;
@@ -58,7 +61,7 @@ public class UserController {
         try{
             User logined = userService.loginCustomer(loginReq);
             LoginResponseBean responseBean = new LoginResponseBean(
-                    "Login Successfully", logined.getName(), logined.getToken());
+                    "otp generated successfully", logined.getName(), logined.getToken());
 //            return   ResponseEntity.ok(HttpStatus.BAD_REQUEST);
             return   ResponseEntity.ok(responseBean);
         } catch (Exception e) {
@@ -79,6 +82,22 @@ public class UserController {
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<String> verifyOtp(@RequestBody OtpRequest request) {
+        try{
+            boolean isVerified = userService.verifyOtp(request.getEmail(), request.getOtp());
+
+//            TokenResponseBean tokenResponseBean = new TokenResponseBean("OTP Successfully", verifyOtp.getName(), verifyOtp.getEmail(), verifyOtp.getPhone());
+            if (isVerified) {
+                return ResponseEntity.ok("OTP verified successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OTP verification failed");
+            }
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }

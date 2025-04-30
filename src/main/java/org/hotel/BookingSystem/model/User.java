@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import org.hotel.BookingSystem.enums.UserType;
 
+import java.time.LocalDateTime;
+
 
 @Entity
 
@@ -17,6 +19,12 @@ public class User {
     private String email;
     private String password;
     private String phone;
+
+    @Column(name = "otp")
+    private String otp;
+
+    @Column(name = "otp_generated_time")
+    private LocalDateTime otpGeneratedTime;
 
     @Column(unique = true)
     private String token;
@@ -78,5 +86,21 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public LocalDateTime getOtpGeneratedTime() {
+        return otpGeneratedTime;
+    }
+
+    public void setOtpGeneratedTime(LocalDateTime otpGeneratedTime) {
+        this.otpGeneratedTime = otpGeneratedTime;
     }
 }
