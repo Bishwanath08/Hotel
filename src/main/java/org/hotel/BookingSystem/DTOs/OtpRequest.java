@@ -1,13 +1,26 @@
 package org.hotel.BookingSystem.DTOs;
 
 public class OtpRequest {
-    private String email;
 
+    private  String name;
+    private String email;
+     private String phone;
     private String otp;
 
-    public OtpRequest(String email,  String otp) {
-        this.email = email;
-        this.otp = otp;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

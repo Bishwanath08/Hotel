@@ -132,7 +132,7 @@ public class UserService {
         return "1111";
     }
 
-    public boolean verifyOtp(String email, String otp) {
+    public User verifyOtp(String email, String otp) {
         Optional<User> userOtp = Optional.ofNullable(userRepo.findByEmail(email));
 
         if (userOtp.isPresent()) {
@@ -142,8 +142,11 @@ public class UserService {
                 if (user.getOtpGeneratedTime().isAfter(LocalDateTime.now()))
                 {
                     user.setOtpGeneratedTime(LocalDateTime.now());
+                    user.setEmail(user.getEmail());
+                    user.setName(user.getName());
+                    user.setPhone(user.getPhone());
                     userRepo.save(user);
-                    return true;
+                    return user;
                 }
             } else {
                 throw new RuntimeException("Invalid OTP");
@@ -151,6 +154,8 @@ public class UserService {
         } else {
             throw new RuntimeException("User not Found");
         }
-        return false;
+        return null;
     }
+
+
 }

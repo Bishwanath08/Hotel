@@ -11,6 +11,7 @@ public class TokenResponseBean {
     @Setter
     private String phone;
 
+
     public TokenResponseBean(String message, String name, String email,  String phone) {
         this.message = message;
         this.name = name;
