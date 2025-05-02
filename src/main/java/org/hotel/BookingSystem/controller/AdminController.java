@@ -31,6 +31,7 @@ public class AdminController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody BeanRegister register) {
+
         try {
             User registered = userService.registerAdmin(register);
             RegisterResponseBean responseBean = new RegisterResponseBean(

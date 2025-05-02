@@ -49,8 +49,6 @@ public class UserController {
             return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", e.getMessage()));
-//            System.out.println(e.getMessage());
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -60,7 +58,7 @@ public class UserController {
             User logined = userService.loginCustomer(loginReq);
             LoginResponseBean responseBean = new LoginResponseBean(
                     "otp generated successfully", logined.getName(), logined.getToken());
-//            return   ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+
             return   ResponseEntity.ok(responseBean);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials!");
@@ -77,10 +75,10 @@ public class UserController {
                     "full detail of User! ", userByToken.getName(), userByToken.getEmail(), userByToken.getPhone()
             );
             return ResponseEntity.ok(tokenResponseBean);
-        }  catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(e.getMessage());
-        }
+            }
     }
 
     @PostMapping("/verify-otp")

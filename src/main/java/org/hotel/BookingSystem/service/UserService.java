@@ -2,16 +2,14 @@ package org.hotel.BookingSystem.service;
 
 import org.hotel.BookingSystem.Bean.BeanLogin;
 import org.hotel.BookingSystem.Bean.BeanRegister;
-import org.hotel.BookingSystem.DTOs.OtpRequest;
 import org.hotel.BookingSystem.enums.UserType;
-import org.hotel.BookingSystem.model.Hotel;
 import org.hotel.BookingSystem.model.User;
 import org.hotel.BookingSystem.repository.HotelRepository;
 import org.hotel.BookingSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -124,13 +122,13 @@ public class UserService {
 
     public String generateOTP(int length) {
         String digits = "0123456789";
-        StringBuilder otp = new StringBuilder();
+        StringBuilder otp = new StringBuilder(4);
         Random random = new Random();
         for (int i = 0; i < length; i++) {
             otp.append(digits.charAt(random.nextInt(digits.length())));
         }
-        System.out.println("YOUR OTP IS ::::: " + 1111);
-        return "1111";
+        System.out.println("YOUR OTP IS ::::: " + otp);
+        return otp.toString();
     }
 
     public User verifyOtp(String email, String otp) {

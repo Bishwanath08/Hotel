@@ -1,16 +1,16 @@
 package org.hotel.BookingSystem.repository;
 
-import org.hibernate.annotations.processing.SQL;
+
 import org.hotel.BookingSystem.enums.RoomType;
 import org.hotel.BookingSystem.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
