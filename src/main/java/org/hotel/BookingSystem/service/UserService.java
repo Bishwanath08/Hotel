@@ -86,6 +86,7 @@ public class UserService {
         user.setPassword(beanRegister.getPassword());
         user.setPhone(beanRegister.getPhone());
         user.setUserType(UserType.CUSTOMER);
+
         return userRepo.save(user);
     }
 
@@ -128,7 +129,7 @@ public class UserService {
         for (int i = 0; i < length; i++) {
             otp.append(digits.charAt(random.nextInt(digits.length())));
         }
-        System.out.println("YOUR OTP IS :::::"+1111);
+        System.out.println("YOUR OTP IS ::::: " + 1111);
         return "1111";
     }
 
@@ -156,6 +157,5 @@ public class UserService {
         }
         return null;
     }
-
 
 }

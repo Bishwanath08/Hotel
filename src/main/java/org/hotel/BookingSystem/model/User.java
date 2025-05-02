@@ -32,6 +32,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+
+//    private String role;
+
     public Long getId() {
         return id;
     }
@@ -100,7 +103,16 @@ public class User {
         return otpGeneratedTime;
     }
 
+
     public void setOtpGeneratedTime(LocalDateTime otpGeneratedTime) {
         this.otpGeneratedTime = otpGeneratedTime;
     }
+//
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
 }

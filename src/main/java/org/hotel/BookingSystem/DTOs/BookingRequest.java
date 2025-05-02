@@ -1,11 +1,13 @@
 package org.hotel.BookingSystem.DTOs;
 
+import org.hotel.BookingSystem.enums.RoomType;
+
 import java.time.LocalDate;
 
 public class BookingRequest {
     private Long userId;
     private Long hotelId;
-    private Long roomId;
+    private RoomType roomType;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
@@ -25,12 +27,12 @@ public class BookingRequest {
         this.hotelId = hotelId;
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public RoomType getRoomType() {
+        return roomType;
     }
 
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 
     public LocalDate getCheckInDate() {

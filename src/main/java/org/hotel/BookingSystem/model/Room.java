@@ -3,9 +3,11 @@ package org.hotel.BookingSystem.model;
 import jakarta.persistence.*;
 import org.hotel.BookingSystem.enums.RoomType;
 
+import java.util.List;
+
 
 @Entity
-
+@Table(name = "room")
 public class Room {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +21,7 @@ public class Room {
 
    @Column(name = "fk_hotel_Id")
    private Long hotelId;
+
 
     public Long getId() {
         return id;
@@ -52,7 +55,7 @@ public class Room {
         this.price = price;
     }
 
-    public boolean isAvailable() {
+    public  boolean isAvailable() {
         return available;
     }
 

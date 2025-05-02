@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "booking")
 public class Booking {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
